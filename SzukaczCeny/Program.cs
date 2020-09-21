@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace SzukaczCeny
 {
     class Program
-    {              
-
+    {
+        static int marza = 18;
         static void Main(string[] args)
         {
             int marza = 18;
@@ -22,13 +22,13 @@ namespace SzukaczCeny
                 Klawisz = Console.ReadKey().Key;
                 if (Klawisz == ConsoleKey.F1)
                 {
-                    UstawMarze(out marza);
+                    UstawMarze();
                 }
 
             } while (Klawisz != ConsoleKey.Escape);
         }
 
-        private static void UstawMarze(out int marza)
+        private static void UstawMarze()
         {
             try
             {
@@ -42,42 +42,43 @@ namespace SzukaczCeny
         }
 
         private static void SzukajCeny()
-        {            
+        {
+            var Zakup = new Cena();
+            var Sprzedaz = new Cena();
+            var VAT = new Cena();
+            var marza = new MarzaControler(18);
+            
             int marzaR;
             bool CenaOK;
-            double CenaSB;
-            double CenaZN = WczytajCene();
-            if (CenaZN <= 0) return;
-
-            double CenaZB = Math.Round(CenaZN * 1.23, 2, MidpointRounding.AwayFromZero);
-            double CenaSN = CenaZN * (1 + (marza / 100d));
+            
+            Zakup.CenaNetto = WczytajCene();
+            if (Zakup.CenaNetto <= 0) return;
+            
+            Sprzedaz.CenaNetto = Zakup.Netto() * (1 + (marza.Value / 100d));
 
             do
             {
-                //CenaSN += 1d;
-                //CenaSN += 0.1d;
-                CenaSN += 0.01d;
-                CenaSB = Math.Round(CenaSN * 1.23, 2, MidpointRounding.AwayFromZero);
-                CenaOK = CenaSB == Math.Truncate(CenaSB);
+                Sprzedaz.CenaNetto += 0.01d;                
+                CenaOK = Sprzedaz.Brutto() == Math.Truncate(Sprzedaz.Brutto());
 
             } while (!CenaOK);
 
-            marzaR = (int)Math.Round((100 * CenaSB / CenaZB) - 100, 0);
+            marza.Calculate(Zakup, Sprzedaz);
 
-            DisplayResult(marza, marzaR, CenaSB, CenaZN, CenaZB, CenaSN);
+            DisplayResult(marza,Sprzedaz,Zakup);
         }
 
-        private static void DisplayResult(int marza, int marzaR, double CenaSB, double CenaZN, double CenaZB, double CenaSN)
+        private static void DisplayResult(MarzaControler m, Cena S, Cena Z)
         {
             Console.Clear();
-            Console.WriteLine($"Marża ustawiona : {marza} %");
-            Console.WriteLine($"\trealna  : {marzaR} %");
+            Console.WriteLine($"Marża ustawiona : {m.Value} %");
+            Console.WriteLine($"\trealna  : {m.RealValue} %");
             Console.WriteLine($"\t\t\t    netto     \t brutto");
             Console.WriteLine($"\t\t\t ==============================");
-            Console.WriteLine($"\tCena zakupu :       {CenaZN.ToString("0.00")} \t {CenaZB.ToString("0.00")}");
-            Console.WriteLine($"\tCena sprzedaży :    {CenaSN.ToString("0.00")} \t {CenaSB.ToString("0.00")}");
+            Console.WriteLine($"\tCena zakupu :       {Z.CenaNetto.ToString("0.00")} \t {Z.Brutto().ToString("0.00")}");
+            Console.WriteLine($"\tCena sprzedaży :    {S.CenaNetto.ToString("0.00")} \t {S.Brutto().ToString("0.00")}");
             Console.WriteLine($"\t\t\t ------------------------------");
-            Console.WriteLine($"\tZysk :              {(CenaSN - CenaZN).ToString("0.00")} \t {(CenaSB - CenaZB).ToString("0.00")}\n\n");
+            Console.WriteLine($"\tZysk :              {(S.CenaNetto - Z.CenaNetto).ToString("0.00")} \t {(S.Brutto() - Z.Brutto()).ToString("0.00")}\n\n");
         }
 
         private static double WczytajCene()
