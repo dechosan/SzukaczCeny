@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SzukaczCeny", "SzukaczCeny\SzukaczCeny.csproj", "{C87BEEE6-4D88-49D8-9B7C-C79E49A54C11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SzukaczCeny.Testy", "SzykaczCeny.Testy\SzukaczCeny.Testy.csproj", "{C77F5A8A-5CFC-45FF-B27B-F7222184C4CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C87BEEE6-4D88-49D8-9B7C-C79E49A54C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C87BEEE6-4D88-49D8-9B7C-C79E49A54C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C87BEEE6-4D88-49D8-9B7C-C79E49A54C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C87BEEE6-4D88-49D8-9B7C-C79E49A54C11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C77F5A8A-5CFC-45FF-B27B-F7222184C4CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C77F5A8A-5CFC-45FF-B27B-F7222184C4CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C77F5A8A-5CFC-45FF-B27B-F7222184C4CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C77F5A8A-5CFC-45FF-B27B-F7222184C4CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3458118B-1788-4E3C-9057-D43DD0B53FB9}
+	EndGlobalSection
+EndGlobal
